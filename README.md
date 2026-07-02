@@ -1,17 +1,25 @@
 # GeoBee Brand Book — Static Site
 
-A single, self-contained `index.html` — all fonts, scripts, and assets are inlined, so it works offline and needs no build step.
+A single, fully static `index.html`. No build step and no dynamic JavaScript — every logo is inlined as SVG and the layout is plain HTML/CSS. Fonts load from Google Fonts. Serve the whole folder as-is.
+
+## Contents
+
+- `index.html` — the entire brand book (one page)
+- `.nojekyll` — tells GitHub Pages to serve files as-is
+- `README.md` — this file
 
 ## Publish to GitHub Pages
 
-1. Create a new GitHub repository and push the contents of this `site/` folder to it (`index.html`, `.nojekyll`, `README.md`).
-2. In the repo, go to **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Choose the `main` branch and the `/ (root)` folder, then **Save**.
-5. Wait ~1 minute. Your site will be live at `https://<username>.github.io/<repo>/`.
-
-The included `.nojekyll` file tells GitHub Pages to serve the files as-is (skipping Jekyll processing).
+1. Push the contents of this `site/` folder to a GitHub repository.
+2. In the repo: **Settings → Pages**.
+3. **Build and deployment → Source:** Deploy from a branch.
+4. Pick the `main` branch and the `/ (root)` folder, then **Save**.
+5. After ~1 minute the site is live at `https://<username>.github.io/<repo>/`.
 
 ## Local preview
 
-Just open `index.html` in any browser — no server required.
+Open `index.html` in any browser — no server required.
+
+## Print / PDF
+
+Use the browser's Print (Cmd/Ctrl-P) → *Save as PDF*. The page paginates onto US Letter with a repeating header/footer; enable **Background graphics** so colors print.
