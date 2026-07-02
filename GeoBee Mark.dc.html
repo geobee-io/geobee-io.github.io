@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</helmet>
+
+<sc-if value="{{ isSymbol }}" hint-placeholder-val="{{ true }}">
+  <svg viewBox="0 -34 120 154" style="height: {{ symH }}px; width: {{ symW }}px; display: block; overflow: visible;">
+    <defs><clipPath id="hexs-{{ uid }}"><polygon points="44,10 76,10 104,60 76,110 44,110 16,60"></polygon></clipPath></defs>
+    <path d="M52 12 Q41 -10 29 -21" fill="none" stroke="{{ body }}" stroke-width="5" stroke-linecap="round"></path>
+    <path d="M68 12 Q79 -10 91 -21" fill="none" stroke="{{ body }}" stroke-width="5" stroke-linecap="round"></path>
+    <circle cx="29" cy="-21" r="7" fill="{{ tip }}"></circle>
+    <circle cx="91" cy="-21" r="7" fill="{{ tip }}"></circle>
+    <polygon points="44,10 76,10 104,60 76,110 44,110 16,60" fill="{{ body }}" stroke="{{ body }}" stroke-width="12" stroke-linejoin="round"></polygon>
+    <g clip-path="url(#hexs-{{ uid }})">
+      <rect x="-4" y="34" width="128" height="14" rx="7" fill="{{ stripe }}"></rect>
+      <rect x="-4" y="59" width="128" height="14" rx="7" fill="{{ stripe }}"></rect>
+      <rect x="-4" y="84" width="128" height="14" rx="7" fill="{{ stripe }}"></rect>
+    </g>
+  </svg>
+</sc-if>
+
+<sc-if value="{{ isFull }}" hint-placeholder-val="{{ true }}">
+  <span style="font-family: 'Sora', sans-serif; font-weight: 600; letter-spacing: -0.03em; white-space: nowrap; font-size: {{ size }}px; line-height: 1; color: {{ text }};">Ge<svg viewBox="0 -34 120 152" style="width: 0.75em; height: 0.95em; margin: 0 0.04em; vertical-align: -0.075em; overflow: visible;"><defs><clipPath id="hexf-{{ uid }}"><polygon points="44,10 76,10 104,60 76,110 44,110 16,60"></polygon></clipPath></defs><path d="M52 12 Q41 -10 29 -21" fill="none" stroke="{{ body }}" stroke-width="7" stroke-linecap="round"></path><path d="M68 12 Q79 -10 91 -21" fill="none" stroke="{{ body }}" stroke-width="7" stroke-linecap="round"></path><circle cx="29" cy="-21" r="9" fill="{{ tip }}"></circle><circle cx="91" cy="-21" r="9" fill="{{ tip }}"></circle><polygon points="44,10 76,10 104,60 76,110 44,110 16,60" fill="{{ body }}" stroke="{{ body }}" stroke-width="12" stroke-linejoin="round"></polygon><g clip-path="url(#hexf-{{ uid }})"><rect x="-4" y="34" width="128" height="15" rx="7.5" fill="{{ stripe }}"></rect><rect x="-4" y="60" width="128" height="15" rx="7.5" fill="{{ stripe }}"></rect><rect x="-4" y="86" width="128" height="15" rx="7.5" fill="{{ stripe }}"></rect></g></svg>Bee<span style="font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.52em; color: {{ io }}; vertical-align: super;">.io</span></span>
+</sc-if>
+
+<sc-if value="{{ isWord }}" hint-placeholder-val="{{ true }}">
+  <span style="font-family: 'Sora', sans-serif; font-weight: 600; letter-spacing: -0.03em; white-space: nowrap; font-size: {{ size }}px; line-height: 1; color: {{ text }};">GeoBee<span style="font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.52em; color: {{ io }}; vertical-align: super;">.io</span></span>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 360, &quot;height&quot;: 140}, &quot;variant&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;full&quot;, &quot;symbol&quot;, &quot;wordmark&quot;], &quot;default&quot;: &quot;full&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;mode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;default&quot;: &quot;light&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;size&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 48, &quot;min&quot;: 12, &quot;max&quot;: 400, &quot;unit&quot;: &quot;px&quot;, &quot;tsType&quot;: &quot;number&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mode = this.props.mode || 'light';
+    const variant = this.props.variant || 'full';
+    const size = Number(this.props.size) || (variant === 'symbol' ? 96 : 48);
+    const symH = size;
+    const symW = +(size * 120 / 154).toFixed(1);
+    const body = mode === 'light' ? '#1C1917' : '#FFC107';
+    const stripe = mode === 'light' ? '#FFC107' : '#1C1917';
+    const tip = mode === 'light' ? '#FFC107' : '#FAF8F4';
+    const text = mode === 'light' ? '#1C1917' : '#FAF8F4';
+    const io = mode === 'light' ? '#C77D18' : '#FFC107';
+    if (!this._uid) this._uid = 'g' + Math.random().toString(36).slice(2, 7);
+    return {
+      size, symH, symW, body, stripe, tip, text, io, uid: this._uid,
+      isSymbol: variant === 'symbol',
+      isFull: variant === 'full',
+      isWord: variant === 'wordmark',
+    };
+  }
+}
+</script>
+</body>
+</html>
